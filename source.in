@@ -4,9 +4,10 @@ INIT ole
 INIT ale
 INIT brn
 INIT ans
-FILL 3, mnb
-FILL 4, nic
-POWT mnb, 2, ole
-POWT ale, 2, ale
-ADDS mnb, ale, brn
-SQRT brn, 2, ans
+FILL mnb, 3
+FILL nic, 4
+POWT mnb, ole
+POWT nic
+MOVE ale, nic
+ADDS ole, ale, brn
+SQRT brn, ans

@@ -2,45 +2,18 @@
 #include <sstream>
 #include <fstream>
 #include <ctime>
+#include <vector>
+#include "classes/register.h"
+#include "classes/subfunc.h"
+#include "classes/memory.h"
 using namespace std;
 
-class Register {
-private:
-    string regName;
-    int data;
-    string hexadecimal; 
-
-public:
-    Register(string regName) {
-        this->regName = regName;
-    }
-    void printRegister() {
-        
-        cout << "    " <<  " * * * * * * * * * *" << endl;
-        cout << "    " <<  " *                 *" << endl;
-        cout << regName <<"  *                 *" << endl;
-        cout << "    " <<  " *                 *" << endl;
-        cout << "    " <<  " * * * * * * * * * *" << endl;
-    }
-};
-
-void printAllRegisters(Register registers[], int noOfRegisters) {
-    for(int i = 0; i < noOfRegisters; i++) {
-        registers[i].printRegister();
-    }
-}
-
-void pause(float n){
-    n *= CLOCKS_PER_SEC;
-    clock_t now{clock()};
-    while(clock() - now < n);
-}
-
-void clrScr() {
-    cout << "\033[2J\033[1;1H";
-}
 
 int main() {
+    const int byteSize = 4;
+    // create an object to access the subfunctions
+    SubFunc f;
+
     // create the registers
     Register mnb("mnb");
     Register nic("nic");
@@ -48,37 +21,47 @@ int main() {
     Register brn("brn");
     Register ale("ale");
     Register ans("ans");
+    Register pcr("pcr");
 
-    Register registers[6] = { mnb, nic, ole, brn, ale, ans};
+    Register registers[7] = { pcr, mnb, nic, ole, brn, ale, ans};
     size_t noOfRegisters = sizeof(registers)/sizeof(mnb);
 
-
-    // fetch from memory
+    // collect instructions from file and store in memory
     fstream fetch;
     fetch.open("source.in", ios::in);
     
-    string line;
-    while(getline(fetch, line)) {
-        clrScr();
-        cout << "Fetching from memory..." << flush;
-        pause(1);
-        cout << line << "\n" << flush;
-        pause(1);
-        printAllRegisters(registers, noOfRegisters);
-        pause(2);
+    string instruction;
+    int counter = 0;
+
+    vector<Memory> memoryCells;
+
+    while(getline(fetch, instruction)) {
+        f.clrScr();
+        Memory m(counter * byteSize);
+        counter++;
+        m.setInstruction(instruction);
+        memoryCells.push_back(m);
+        
     }
+    
 
     
 }
 
 
 
+/*
+while(getline(fetch, instruction)) {
+    f.clrScr();
+    Memory m(counter * byteSize);
+    counter++;
+    m.setInstruction(instruction);
+    memoryCells.push_back(m);
+    cout << "Collecting instructions from file...";
+    cout << instruction << "\n";
+    f.printMemoryCells(memoryCells);
+    f.pause(1);
+}
 
 
-
-// mnb.printRegister();
-// nic.printRegister();
-// ole.printRegister();
-// ale.printRegister();
-// brn.printRegister();
-// ans.printRegister();
+*/
