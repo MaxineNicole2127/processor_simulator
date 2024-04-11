@@ -27,10 +27,16 @@ A simple processor simulator that mimics the basic functionalities of a processo
 Size: 32-bits
 
 `0001`- `mnb`
+
 `0010`- `nic`
+
 `0011`- `ole`
+
 `0100`- `ale`
+
 `0101`- `brn`
+
 `0110`- `ans`
+
 `0000`- `pct` : A special register that serves as the program counter of the processor, keeping track of the memory cell of the next instruction to be executed.
 
