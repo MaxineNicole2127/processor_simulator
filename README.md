@@ -22,7 +22,7 @@ A simple processor simulator that mimics the basic functionalities of a processo
 
 ## Registers
 
-6 General-Purpose Registers and 1 Special Register
+6 General-Purpose Registers and 2 Special Registers
 
 Size: 32-bits
 
@@ -37,6 +37,8 @@ Size: 32-bits
 `0101`- `brn`
 
 `0110`- `ans`
+
+`0111` - `ins` : A special register that keeping track of the instruction currently being executed.
 
 `0000`- `pct` : A special register that serves as the program counter of the processor, keeping track of the memory cell of the next instruction to be executed.
 

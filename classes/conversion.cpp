@@ -64,6 +64,8 @@ string Conversion::registerToBinCode(string regName) {
         return "0110";
     else if(regName == "pct") 
         return "0000";
+    else if(regName == "ins") 
+        return "0111";
     return "0000";
 }
 

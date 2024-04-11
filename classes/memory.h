@@ -19,12 +19,13 @@ private:
     size_t noOfArguments;
     int opCodeDecimal;
     string bitsInstruction;
-    void displayContent();
 public:
     Memory(int memoryNo);
+    void displayContent();
     void displayMemory();
+    int getMemoryNo();
     void printMemory();
-    void setInstruction(string instruction);
+    void setInstruction(string instruction, bool display = true);
     void convertToBits();
 };
 

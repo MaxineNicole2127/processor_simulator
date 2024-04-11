@@ -4,19 +4,16 @@
 using namespace std;
 
 void Printing::printAllRegisters(Register registers[], int noOfRegisters) {
-    cout << "REGISTERS: " << endl;
+    cout << "\nREGISTERS: " << endl << endl;
     for(int i = 0; i < noOfRegisters; i++) {
+        cout << "\t";
         registers[i].printRegister();
     }
 
-    for(Register r : registers) {
-        cout << "\t";
-        m.printMemory();
-    }
 }
 
 void Printing::printMemoryCells(vector<Memory> mc) {
-    cout << "MEMORY CELLS: " << endl << endl;
+    cout << "\nMEMORY CELLS: " << endl << endl;
     for(Memory m : mc) {
         cout << "\t";
         m.printMemory();
