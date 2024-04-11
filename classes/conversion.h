@@ -8,6 +8,9 @@ using namespace std;
 class Conversion {
 public:
     string instructionToOpCode(string instruction);
+    int binaryToDec(string bin);
+    string decToBinary(int n);
+    string registerToBinCode(string regName);
 };
 
 #endif

@@ -6,6 +6,7 @@
 using namespace std;
 
 
+
 Memory::Memory(int memoryNo) {
     this->memoryNo = memoryNo;
     this->memoryHex = f.toHex(memoryNo);
@@ -20,23 +21,101 @@ void Memory::displayMemory() {
 }
 
 void Memory::printMemory() {
-    cout << memoryHex << ": " << instruction << endl;
+    cout << memoryHex << ": " << bitsInstruction << endl;
 }
 
 void Memory::setInstruction(string instruction) {
     this->instruction = instruction;
     this->convertToBits();
-    cout << "opCode: " << this->opCode << endl;
-    cout << "arguments: ";
-    for(string s: arguments) {
-        cout << s << "" ;
-    }
-
+    this->displayContent();
 }
+
 
 void Memory::convertToBits() {
     arguments = f.strToVector(this->instruction);
+
+    // convert instruction to operation code (ex. INIT --> 0000)
     this->opCode = c.instructionToOpCode(arguments.at(0));
     arguments.erase(arguments.begin());
+    this->noOfArguments = arguments.size();
 
+    // converts OPCode to decimal for easier use of switch case
+    this->opCodeDecimal = c.binaryToDec(this->opCode);
+    
+    // decide what to do with the arguments depending on the OPCode
+    //size_t len = arguments.size();
+    switch(opCodeDecimal) {
+    case 0: // INIT <register>
+        arguments_bin.push_back(c.registerToBinCode(arguments.at(0)));
+        break;
+    case 1: // FILL <register>, <data>
+        arguments_bin.push_back(c.registerToBinCode(arguments.at(0)));
+        arguments_bin.push_back(c.decToBinary(stoi(arguments.at(1))));
+        break;
+    case 2: // MOVE <register>, <register>
+        arguments_bin.push_back(c.registerToBinCode(arguments.at(0)));
+        arguments_bin.push_back(c.registerToBinCode(arguments.at(1)));
+        break;
+    case 3: // ADDT <register>, <register>
+        arguments_bin.push_back(c.registerToBinCode(arguments.at(0)));
+        arguments_bin.push_back(c.registerToBinCode(arguments.at(1)));
+        break;
+    case 4: // ADDS <operandReg1>, <operandReg2>, <destinationRegister>
+        arguments_bin.push_back(c.registerToBinCode(arguments.at(0)));
+        arguments_bin.push_back(c.registerToBinCode(arguments.at(1)));
+        arguments_bin.push_back(c.registerToBinCode(arguments.at(2)));
+        break;
+    case 5: // SUBT <register to subtract from>, <data>
+        arguments_bin.push_back(c.registerToBinCode(arguments.at(0)));
+        arguments_bin.push_back(c.registerToBinCode(arguments.at(1)));
+        break;
+    case 6: // SUBS <minuendReg>, <subtrahendReg>, <destinationRegister>
+        arguments_bin.push_back(c.registerToBinCode(arguments.at(0)));
+        arguments_bin.push_back(c.registerToBinCode(arguments.at(1)));
+        arguments_bin.push_back(c.registerToBinCode(arguments.at(2)));
+        break;
+    case 7: // POWT <register>  or  POWT <register>, <destinationRegister>
+        if(noOfArguments == 1) {
+            arguments_bin.push_back(c.registerToBinCode(arguments.at(0)));
+        } else {
+            arguments_bin.push_back(c.registerToBinCode(arguments.at(0)));
+            arguments_bin.push_back(c.registerToBinCode(arguments.at(1)));
+        }
+        break;
+    case 8: // SQRT <register>  or  SQRT <register>, <destinationRegister>
+        if(noOfArguments == 1) {
+            arguments_bin.push_back(c.registerToBinCode(arguments.at(0)));
+        } else {
+            arguments_bin.push_back(c.registerToBinCode(arguments.at(0)));
+            arguments_bin.push_back(c.registerToBinCode(arguments.at(1)));
+        }
+        break;
+    }
 }
+
+void Memory::displayContent() {
+    cout << "\n\tInstruction: " << instruction << endl;
+    cout << "\tOPCode: " << this->opCode << "(" << opCodeDecimal << ")" << endl;
+    cout << "\tArguments: ";
+
+    this->bitsInstruction = opCode;
+
+    for(size_t i = 0; i < noOfArguments; i++) {
+        cout << arguments_bin.at(i) << "(" << arguments.at(i) << ") ";
+        this->bitsInstruction += arguments_bin.at(i);
+    }
+
+    cout << "\n\n\tBITS INSTRUCTION: " << bitsInstruction << endl << endl;
+}
+
+/********************************
+    0000 - INIT - 0
+    0001 - FILL - 1
+    0010 - MOVE - 2
+    0011 - ADDT - 3
+    0100 - ADDS - 4
+    0101 - SUBT - 5
+    0110 - SUBS - 6
+    0111 - POWT - 7
+    1000 - SQRT - 8
+********************************/

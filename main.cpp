@@ -9,6 +9,7 @@
 #include "classes/memory.h"
 #include "classes/conversion.h"
 #include <bitset>
+#include<limits>
 using namespace std;
 
 
@@ -25,9 +26,9 @@ int main() {
     Register brn("brn");
     Register ale("ale");
     Register ans("ans");
-    Register pcr("pcr");
+    Register pct("pct");
 
-    Register registers[7] = { pcr, mnb, nic, ole, brn, ale, ans};
+    Register registers[7] = { pct, mnb, nic, ole, brn, ale, ans};
     size_t noOfRegisters = sizeof(registers)/sizeof(mnb);
 
     // collect instructions from file and store in memory
@@ -38,17 +39,32 @@ int main() {
     int counter = 0;
 
     vector<Memory> memoryCells;
-    string binary = std::bitset<8>(10).to_string();
-    cout << binary;
+    
+    // convert the instruction to its bits equivalent
+    while(getline(fetch, instruction)) {
+        f.clrScr();
+        cout << "Collecting instructions from file..." << flush;
+        f.pause(1);
+        cout << instruction << "\n";
+        Memory m(counter * byteSize);
+        counter++;
+        m.setInstruction(instruction);
+        memoryCells.push_back(m);
+        f.pause(0.5);
+        pr.printMemoryCells(memoryCells);
+        cin.ignore(std::numeric_limits<streamsize>::max(),'\n');
+        //f.pause(1);
+    }
 
-    // while(getline(fetch, instruction)) {
-    //     f.clrScr();
-    //     Memory m(counter * byteSize);
-    //     counter++;
-    //     m.setInstruction(instruction);
-    //     memoryCells.push_back(m);
-     
-    // }
+    f.clrScr();
+    pr.printMemoryCells(memoryCells);
+
+    // set program counter to 0
+    pr.printReg
+
+
+
+    
     
 
     
@@ -71,3 +87,14 @@ while(getline(fetch, instruction)) {
 
 
 */
+
+
+// while(getline(fetch, instruction)) {
+    //     cout << "\n\n#" << counter << endl << endl;
+    //     // f.clrScr();
+    //     Memory m(counter * byteSize);
+    //     counter++;
+    //     m.setInstruction(instruction);
+    //     memoryCells.push_back(m);
+        
+    // }
