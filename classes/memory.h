@@ -3,11 +3,13 @@
 #include <iostream>
 #include <vector>
 #include "func.h"
+#include "conversion.h"
 using namespace std;
 
 class Memory {
 private:
-    Func c;
+    Func f;
+    Conversion c;
     int memoryNo;
     string memoryHex;
     string instruction;

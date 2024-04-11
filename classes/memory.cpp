@@ -8,7 +8,7 @@ using namespace std;
 
 Memory::Memory(int memoryNo) {
     this->memoryNo = memoryNo;
-    this->memoryHex = c.toHex(memoryNo);
+    this->memoryHex = f.toHex(memoryNo);
 }
 void Memory::displayMemory() {
     
@@ -35,7 +35,8 @@ void Memory::setInstruction(string instruction) {
 }
 
 void Memory::convertToBits() {
-    arguments = c.strToVector(this->instruction);
-    this->opCode = arguments.at(0);
+    arguments = f.strToVector(this->instruction);
+    this->opCode = c.instructionToOpCode(arguments.at(0));
     arguments.erase(arguments.begin());
+
 }

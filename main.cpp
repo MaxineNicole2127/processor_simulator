@@ -37,17 +37,15 @@ int main() {
     int counter = 0;
 
     vector<Memory> memoryCells;
-    Conversion c;
-    cout << c.instructionToOpCode("hello");
 
-    // while(getline(fetch, instruction)) {
-    //     f.clrScr();
-    //     Memory m(counter * byteSize);
-    //     counter++;
-    //     m.setInstruction(instruction);
-    //     memoryCells.push_back(m);
-        
-    // }
+    while(getline(fetch, instruction)) {
+        f.clrScr();
+        Memory m(counter * byteSize);
+        counter++;
+        m.setInstruction(instruction);
+        memoryCells.push_back(m);
+     
+    }
     
 
     
