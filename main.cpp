@@ -8,6 +8,7 @@
 #include "classes/printing.h"
 #include "classes/memory.h"
 #include "classes/conversion.h"
+#include <bitset>
 using namespace std;
 
 
@@ -37,15 +38,17 @@ int main() {
     int counter = 0;
 
     vector<Memory> memoryCells;
+    string binary = std::bitset<8>(10).to_string();
+    cout << binary;
 
-    while(getline(fetch, instruction)) {
-        f.clrScr();
-        Memory m(counter * byteSize);
-        counter++;
-        m.setInstruction(instruction);
-        memoryCells.push_back(m);
+    // while(getline(fetch, instruction)) {
+    //     f.clrScr();
+    //     Memory m(counter * byteSize);
+    //     counter++;
+    //     m.setInstruction(instruction);
+    //     memoryCells.push_back(m);
      
-    }
+    // }
     
 
     
