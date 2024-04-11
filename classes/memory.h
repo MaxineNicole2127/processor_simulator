@@ -15,8 +15,11 @@ private:
     string instruction;
     string opCode;
     vector<string> arguments;
+    vector<string> arguments_bin;
+    size_t noOfArguments;
+    int opCodeDecimal;
     string bitsInstruction;
-    int data;
+    void displayContent();
 public:
     Memory(int memoryNo);
     void displayMemory();

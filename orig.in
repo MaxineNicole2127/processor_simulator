@@ -1,0 +1,13 @@
+INIT mnb
+INIT nic
+INIT ole
+INIT ale
+INIT brn
+INIT ans
+FILL mnb, 3
+FILL nic, 4
+POWT mnb, ole
+POWT nic
+MOVE ale, nic
+ADDS ole, ale, brn
+SQRT brn, ans
