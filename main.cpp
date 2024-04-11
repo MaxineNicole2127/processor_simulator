@@ -4,15 +4,18 @@
 #include <ctime>
 #include <vector>
 #include "classes/register.h"
-#include "classes/subfunc.h"
+#include "classes/func.h"
+#include "classes/printing.h"
 #include "classes/memory.h"
+#include "classes/conversion.h"
 using namespace std;
 
 
 int main() {
     const int byteSize = 4;
     // create an object to access the subfunctions
-    SubFunc f;
+    Func f;
+    Printing pr;
 
     // create the registers
     Register mnb("mnb");
@@ -34,15 +37,17 @@ int main() {
     int counter = 0;
 
     vector<Memory> memoryCells;
+    Conversion c;
+    cout << c.instructionToOpCode("hello");
 
-    while(getline(fetch, instruction)) {
-        f.clrScr();
-        Memory m(counter * byteSize);
-        counter++;
-        m.setInstruction(instruction);
-        memoryCells.push_back(m);
+    // while(getline(fetch, instruction)) {
+    //     f.clrScr();
+    //     Memory m(counter * byteSize);
+    //     counter++;
+    //     m.setInstruction(instruction);
+    //     memoryCells.push_back(m);
         
-    }
+    // }
     
 
     

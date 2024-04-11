@@ -2,12 +2,12 @@
 #define MEMORY_H
 #include <iostream>
 #include <vector>
-#include "separateFunc.h"
+#include "func.h"
 using namespace std;
 
 class Memory {
 private:
-    SeparateFunc c;
+    Func c;
     int memoryNo;
     string memoryHex;
     string instruction;

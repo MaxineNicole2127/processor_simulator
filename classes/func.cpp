@@ -1,10 +1,20 @@
-#include "separateFunc.h"
 #include <iostream>
+#include "func.h"
 #include <sstream>
 #include <vector>
+#include <ctime>
 using namespace std;
 
-string SeparateFunc::toHex(int n){
+void Func::pause(float n){
+    n *= CLOCKS_PER_SEC;
+    clock_t now{clock()};
+    while(clock() - now < n);
+}
+void Func::clrScr() {
+    cout << "\033[2J\033[1;1H";
+}
+
+string Func::toHex(int n){
     // ans string to store hexadecimal number
     string ans = "";
     if(n == 0) {
@@ -35,7 +45,7 @@ string SeparateFunc::toHex(int n){
     return ans.length() == 1 ? "0x0" + ans : "0x" + ans;
 }
 
-string SeparateFunc::removeComma(string str) {
+string Func::removeComma(string str) {
     size_t len = str.length();
     if(str[len - 1] == ',') {
         str = str.substr(0, len - 1);
@@ -43,7 +53,7 @@ string SeparateFunc::removeComma(string str) {
     return str;
 }
 
-vector<string> SeparateFunc::strToVector(string toSeparate) {
+vector<string> Func::strToVector(string toSeparate) {
     vector<string> v;
     stringstream stream(toSeparate);
     string str;

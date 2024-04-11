@@ -1,6 +1,6 @@
 #include "memory.h"
 #include <iostream>
-#include "separateFunc.h"
+#include "func.h"
 #include <vector>
 #include <string>
 using namespace std;
