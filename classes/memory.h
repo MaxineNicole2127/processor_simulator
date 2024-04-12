@@ -20,10 +20,13 @@ private:
     int opCodeDecimal;
     string bitsInstruction;
 public:
-    Memory(int memoryNo);
+    // getter
+    string getBitsInstruction();
+    int getMemoryNo(); 
+
     void displayContent();
+    Memory(int memoryNo);
     void displayMemory();
-    int getMemoryNo();
     void printMemory();
     void setInstruction(string instruction, bool display = true);
     void convertToBits();

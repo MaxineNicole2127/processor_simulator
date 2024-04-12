@@ -64,15 +64,25 @@ string Conversion::registerToBinCode(string regName) {
         return "0110";
     else if(regName == "pct") 
         return "0000";
-    else if(regName == "ins") 
-        return "0111";
     return "0000";
 }
 
 
 int Conversion::binaryToDec(string bin) {
-    int dec = stoi(bin, nullptr, 2); // dec = 13
-    return dec;
+    if(bin.length() == 12) {
+        int sign = 1;
+        if(bin[0] == '1') {
+            sign = -1;
+        }
+        bin = bin.substr(1, 11);
+        int dec = stoi(bin, nullptr, 2);
+        cout << "\nBin: " << bin << endl;
+        cout << "Dec: " << dec << endl;
+        return dec * sign;
+    } else {
+        int dec = stoi(bin, nullptr, 2); // dec = 13
+        return dec;
+    }
 }
 
 string Conversion::decToBinary(int n) {
@@ -80,6 +90,7 @@ string Conversion::decToBinary(int n) {
     if(n < 0) {
         sign = "1";
     }
-    string binary = std::bitset<11>(10).to_string();
+    string binary = std::bitset<11>(n).to_string();
     return sign + binary;
 }
+

@@ -1,18 +1,12 @@
 #include <iostream>
 #include "func.h"
-#include <sstream>
+#include <map>
 #include <vector>
 #include <ctime>
+#include <limits>
+#include <sstream>
 using namespace std;
 
-void Func::pause(float n){
-    n *= CLOCKS_PER_SEC;
-    clock_t now{clock()};
-    while(clock() - now < n);
-}
-void Func::clrScr() {
-    cout << "\033[2J\033[1;1H";
-}
 
 string Func::toHex(int n){
     // ans string to store hexadecimal number
@@ -45,6 +39,16 @@ string Func::toHex(int n){
     return ans.length() == 1 ? "0x0" + ans : "0x" + ans;
 }
 
+
+void Func::pause(float n){
+    n *= CLOCKS_PER_SEC;
+    clock_t now{clock()};
+    while(clock() - now < n);
+}
+void Func::clrScr() {
+    cout << "\033[2J\033[1;1H";
+}
+
 string Func::removeComma(string str) {
     size_t len = str.length();
     if(str[len - 1] == ',') {
@@ -63,4 +67,9 @@ vector<string> Func::strToVector(string toSeparate) {
         
     }
     return v;
+}
+
+void Func::promptEnter() {
+    cout << "\n\n\n\t[PRESS ENTER..]";
+    cin.ignore(std::numeric_limits<streamsize>::max(),'\n');
 }

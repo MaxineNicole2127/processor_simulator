@@ -20,10 +20,6 @@ void Memory::displayMemory() {
     cout << "    " <<  " * * * * * * * * * *" << endl;
 }
 
-int Memory::getMemoryNo() {
-    return this->memoryNo;
-}
-
 void Memory::printMemory() {
     cout << memoryHex << ": " << bitsInstruction << endl;
 }
@@ -31,10 +27,6 @@ void Memory::printMemory() {
 void Memory::setInstruction(string instruction, bool display) {
     this->instruction = instruction;
     this->convertToBits();
-    this->bitsInstruction = opCode;
-    for(size_t i = 0; i < noOfArguments; i++) {
-        this->bitsInstruction += arguments_bin.at(i);
-    }
     if(display) this->displayContent();
 }
 
@@ -99,17 +91,33 @@ void Memory::convertToBits() {
         }
         break;
     }
+
+    // formulate the instruction in bits
+    this->bitsInstruction = opCode;
+
+    for(size_t i = 0; i < noOfArguments; i++) {
+        this->bitsInstruction += arguments_bin.at(i);
+    }
 }
 
 void Memory::displayContent() {
     cout << "\n\tInstruction: " << instruction << endl;
     cout << "\tOPCode: " << this->opCode << "(" << opCodeDecimal << ")" << endl;
     cout << "\tArguments: ";
+
     for(size_t i = 0; i < noOfArguments; i++) {
         cout << arguments_bin.at(i) << "(" << arguments.at(i) << ") ";
     }
 
     cout << "\n\n\tBITS INSTRUCTION: " << bitsInstruction << endl << endl;
+}
+
+string Memory::getBitsInstruction() {
+    return this->bitsInstruction;
+}
+
+int Memory::getMemoryNo() {
+    return this->memoryNo;
 }
 
 /********************************
