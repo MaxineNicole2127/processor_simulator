@@ -12,6 +12,8 @@ using namespace std;
 #include <limits>
 using namespace std;
 
+// submitted by: Maxine Nicole B. Bernales (CSMC223)
+
 
 void executeInstruction(map<int, int> &registers, int opCode, vector<int> arguments);
 
@@ -59,7 +61,7 @@ int main() {
         f.promptEnter();
         //f.pause(1);
     }
-    
+
 
     f.clrScr();
     act.printMemoryCells(memoryCells);
