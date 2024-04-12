@@ -10,7 +10,7 @@ void Actions::printAllRegisters(map<int, int> regs, pair<int, string> IR ) {
     while (it != regs.end()) { // print content of the registers (except the instruction register)
         int key = it->first;
         int value = it->second;
-        cout << "\t" << registerName(key) << " : " << f.toHex(value) << endl;
+        cout << "\t" << registerName(key) << " : " << (f.toHex(value)) << " ("<< value << ") " << endl;
         ++it;
     }
 

@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <bitset>
+#include <cmath>
 using namespace std;
 
 /********************************
@@ -85,12 +86,87 @@ int Conversion::binaryToDec(string bin) {
     }
 }
 
-string Conversion::decToBinary(int n) {
+// string Conversion::decToBinary(int n) {
+//     string sign = "0";   // 0 if positive, 1 if negative
+//     string binary = "";
+//     if(n < 0) {
+//         sign = "1";
+//         binary = std::bitset<11>(abs(n)).to_string();
+//     } else {
+//         binary = std::bitset<11>(n).to_string();
+//     }
+//     return sign + binary;
+// }
+
+string Conversion::decToBinary(int n, bool isData) {
     string sign = "0";   // 0 if positive, 1 if negative
-    if(n < 0) {
-        sign = "1";
+    string binary = "";
+    if(isData) {
+        if(n < 0) {
+            sign = "1";
+            binary = std::bitset<11>(abs(n)).to_string();
+        } else {
+            binary = std::bitset<11>(n).to_string();
+        }
+        return sign + binary;
+    } else {
+        binary = std::bitset<16>(n).to_string();
     }
-    string binary = std::bitset<11>(n).to_string();
-    return sign + binary;
+    return binary;
 }
 
+
+string Conversion::negativeToHex(int n) {
+    /*
+    1 Absolute value
+    2 Get binary equivalent (16-bits)
+    3 Negate the value
+    4 Convert to decimal
+    5 Add 1 to decimal
+    6 Convert to hex
+    */
+    int num = abs(n);
+    string bin = decToBinary(num, false);
+    
+    cout << bin << endl;
+    for(int i = 0; i < bin.length(); i++) {
+        bin[i] = (bin[i] == '0') ? '1' : '0';
+    }
+    
+    int decimal = binaryToDec(bin);
+    decimal += 1;
+    
+    string hexEquiv = toHex(decimal);
+    return hexEquiv;
+    
+}
+
+string Conversion::toHex(int n){
+    // ans string to store hexadecimal number
+    string ans = "";
+    if(n == 0) {
+        char ch = 48;
+        ans += ch;
+    }
+    while (n != 0) {
+        int rem = 0; 
+        char ch;
+        rem = n % 16;
+        if (rem < 10) 
+            ch = rem + 48;
+        else 
+            ch = rem + 55;
+         
+        ans += ch;
+        n = n / 16;
+    }
+     
+    int i = 0, j = ans.size() - 1;
+    while(i <= j){
+      swap(ans[i], ans[j]);
+      i++;
+      j--;
+    }
+    
+    return ans.length() == 1 ? "0x0" + ans : "0x" + ans;
+}

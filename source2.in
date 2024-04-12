@@ -1,0 +1,4 @@
+INIT mnb
+INIT brn
+FILL brn, -20
+ADDT brn, nic

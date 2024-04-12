@@ -9,7 +9,9 @@ class Conversion {
 public:
     string instructionToOpCode(string instruction);
     int binaryToDec(string bin);
-    string decToBinary(int n);
+    string decToBinary(int n, bool isData = true);
+    string negativeToHex(int n);
+    string toHex(int n);
     string registerToBinCode(string regName);
 };
 

@@ -11,6 +11,7 @@ class Actions {
 public:
     Func f;
     void printAllRegisters(map<int, int> regs, pair<int, string> IR );
+    void displayAllRegisters(map<int, int> regs, pair<int, string> IR );
     void mockPrintRegisters(map<int, int> regs, pair<int, string> IR );
     void printMemoryCells(vector<Memory> mc);
     string registerName(int n);

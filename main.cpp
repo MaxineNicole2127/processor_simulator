@@ -41,6 +41,7 @@ int main() {
 
     // collects instructions from the file and stores it in memory cells
     fstream fetch;
+    // fetch.open("source.in", ios::in);
     fetch.open("source.in", ios::in);
     
     string instruction;
@@ -55,12 +56,15 @@ int main() {
         Memory m(counter * byteSize);
         counter++;
         m.setInstruction(instruction);
+        m.convertToBits();
         memoryCells.push_back(m);
         f.pause(0.5);
         act.printMemoryCells(memoryCells);
         f.promptEnter();
         //f.pause(1);
     }
+
+    fetch.close();
 
 
     f.clrScr();
@@ -92,7 +96,7 @@ int main() {
         d.setInstructionString(instruction_register.second);
         d.organize();
         d.displayContents();
-        f.pause(2);
+        f.pause(1);
 
         int opCode_Decimal = d.getOPCode_Dec();
         vector<int> arguments = d.getArguments_Dec();
