@@ -15,7 +15,7 @@ using namespace std;
 // submitted by: Maxine Nicole B. Bernales (CSMC223)
 
 
-void executeInstruction(map<int, int> &registers, int opCode, vector<int> arguments);
+int executeInstruction(map<int, int> &registers, int opCode, vector<int> arguments);
 
 int main() {
     const int byteSize = 4;
@@ -51,7 +51,7 @@ int main() {
     
     while(getline(fetch, instruction)) {
         f.clrScr();
-        cout << "Collecting instructions from file..." << flush; f.pause(1);
+        cout << "\n    Collecting instructions from file..." << flush; f.pause(1);
         cout << instruction << "\n";
         Memory m(counter * byteSize);
         counter++;
@@ -102,11 +102,11 @@ int main() {
         vector<int> arguments = d.getArguments_Dec();
 
         // execute instruction
-        executeInstruction(registers, opCode_Decimal, arguments);
+        int register_changed = executeInstruction(registers, opCode_Decimal, arguments);
 
         f.clrScr();
         act.printMemoryCells(memoryCells);
-        act.printAllRegisters(registers, instruction_register);
+        act.printAllRegisters(registers, instruction_register, register_changed);
         d.displayContents();
         f.promptEnter();
 
@@ -123,67 +123,80 @@ int main() {
 
 /******************************* EXECUTION ****************************/
 
-void executeInstruction(map<int, int> &registers, int opCode, vector<int> arguments) {
+int executeInstruction(map<int, int> &registers, int opCode, vector<int> arguments) {
     int arg, arg2, arg3;
+    int reg_changed = 0;
 
     switch(opCode){
     case 0: // INIT <register>
         arg = arguments.at(0);
         registers[arg] = 0;
+        reg_changed = arg;
         break;
     case 1: // FILL <register>, <data>
         arg = arguments.at(0);
         arg2 = arguments.at(1);
         registers[arg] = arg2;
+        reg_changed = arg;
         break;
     case 2: // MOVE <register>, <register>
         arg = arguments.at(0);
         arg2 = arguments.at(1);
         registers[arg] = registers[arg2];
+        reg_changed = arg;
         break;
     case 3: // ADDT <register>, <register>
         arg = arguments.at(0);
         arg2 = arguments.at(1);
         registers[arg] += registers[arg2];
+        reg_changed = arg;
         break;
     case 4: // ADDS <register>, <register>, <register>
         arg = arguments.at(0);
         arg2 = arguments.at(1);
         arg3 = arguments.at(2);
         registers[arg3] = registers[arg] + registers[arg2];
+        reg_changed = arg3;
         break;
     case 5: // SUBT <register>, <register>
         arg = arguments.at(0);
         arg2 = arguments.at(1);
         registers[arg] -= registers[arg2];
+        reg_changed = arg;
         break;
     case 6: // SUBS <register>, <register>, <register>
         arg = arguments.at(0);
         arg2 = arguments.at(1);
         arg3 = arguments.at(2);
         registers[arg3] = registers[arg] - registers[arg2];
+        reg_changed = arg3;
         break;
     case 7: // POWT <register> OR POWT <register>, <register>
         if(arguments.size() == 1) {
             arg = arguments.at(0);
             registers[arg] *= registers[arg];
+            reg_changed = arg;
         } else {
             arg = arguments.at(0);
             arg2 = arguments.at(1);
             registers[arg2] = registers[arg] * registers[arg];
+            reg_changed = arg2;
         }
         break;
     case 8: // SQRT <register> OR POWT <register>, <register>
         if(arguments.size() == 1) {
             arg = arguments.at(0);
             registers[arg] = floor(sqrt(registers[arg]));
+            reg_changed = arg;
         } else {
             arg = arguments.at(0);
             arg2 = arguments.at(1);
             registers[arg2] = floor(sqrt(registers[arg]));
+            reg_changed = arg2;
         }
         break;
-    
     }
+
+    return reg_changed;
         
 }

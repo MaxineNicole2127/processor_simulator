@@ -10,7 +10,7 @@ using namespace std;
 class Actions {
 public:
     Func f;
-    void printAllRegisters(map<int, int> regs, pair<int, string> IR );
+    void printAllRegisters(map<int, int> regs, pair<int, string> IR, int regChanged = -20);
     void displayAllRegisters(map<int, int> regs, pair<int, string> IR );
     void mockPrintRegisters(map<int, int> regs, pair<int, string> IR );
     void printMemoryCells(vector<Memory> mc);

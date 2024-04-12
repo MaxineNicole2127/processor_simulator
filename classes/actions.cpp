@@ -2,15 +2,22 @@
 #include "actions.h"
 using namespace std;
 
-void Actions::printAllRegisters(map<int, int> regs, pair<int, string> IR ) {
+void Actions::printAllRegisters(map<int, int> regs, pair<int, string> IR, int regChanged) {
     map<int, int>::iterator it = regs.begin();
 
-    cout << "\nREGISTERS: " << endl << endl;
+    cout << "\n    REGISTERS: " << endl << endl;
     int counter = 0;
     while (it != regs.end()) { // print content of the registers (except the instruction register)
         int key = it->first;
         int value = it->second;
-        cout << "\t" << registerName(key) << " : " << (f.toHex(value)) << " ("<< value << ") " << endl;
+        if(regChanged == -20)
+            cout << "\t" << registerName(key) << " : " << (f.toHex(value)) << " ("<< value << ") " << endl;
+        else
+            if(key == regChanged)
+                cout << "    --> " << registerName(key) << " : " << (f.toHex(value)) << " ("<< value << ") " << endl;
+            else 
+                cout << "\t" << registerName(key) << " : " << (f.toHex(value)) << " ("<< value << ") " << endl;
+
         ++it;
     }
 
@@ -51,7 +58,7 @@ string Actions::registerName(int n) {
 }
 
 void Actions::printMemoryCells(vector<Memory> mc) {
-    cout << "MEMORY CELLS: " << endl << endl;
+    cout << "\n    MEMORY CELLS: " << endl << endl;
     for(Memory m : mc) {
         cout << "\t";
         m.printMemory();
