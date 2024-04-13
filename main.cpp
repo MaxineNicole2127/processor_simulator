@@ -41,7 +41,7 @@ int main() {
 
     // collects instructions from the file and stores it in memory cells
     fstream fetch;
-    // fetch.open("source.in", ios::in);
+
     fetch.open("source.in", ios::in);
     
     string instruction;

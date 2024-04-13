@@ -1,0 +1,8 @@
+INIT mnb
+INIT ale
+INIT ans
+FILL mnb, -3
+FILL ale, 4
+POWT mnb
+SQRT ale
+SUBS mnb, ale, ans
