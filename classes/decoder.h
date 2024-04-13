@@ -6,7 +6,7 @@
 #include <vector>
 using namespace std;
 
-class Decoder {
+class Decoder { 
 private:
     Conversion c;
     string instructionString;

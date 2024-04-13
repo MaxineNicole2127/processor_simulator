@@ -12,7 +12,6 @@ public:
     Func f;
     void printAllRegisters(map<int, int> regs, pair<int, string> IR, int regChanged = -20);
     void displayAllRegisters(map<int, int> regs, pair<int, string> IR );
-    void mockPrintRegisters(map<int, int> regs, pair<int, string> IR );
     void printMemoryCells(vector<Memory> mc);
     string registerName(int n);
     Memory *pointToMemory(vector<Memory> *cells, int memoryNo);

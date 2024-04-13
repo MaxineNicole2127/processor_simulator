@@ -17,6 +17,7 @@ using namespace std;
     1000 - SQRT
 ********************************/
 
+// returns equivalent binary number of a keyword
 string Conversion::instructionToOpCode(string instruction) {
     if(instruction == "INIT")
         return "0000";
@@ -47,9 +48,9 @@ string Conversion::instructionToOpCode(string instruction) {
 0101- brn
 0110- ans
 0000- pct
-
 *****************/
 
+// returns equivalent binary number of a register
 string Conversion::registerToBinCode(string regName) {
     if(regName == "mnb")
         return "0001";
@@ -69,39 +70,26 @@ string Conversion::registerToBinCode(string regName) {
 }
 
 
-int Conversion::binaryToDec(string bin) {
-    if(bin.length() == 12) {
+int Conversion::binaryToDec(string bin) { // returns decimal equivalent of a binary number
+    if(bin.length() == 12) { // handles data input 
         int sign = 1;
-        if(bin[0] == '1') {
+        if(bin[0] == '1') { // first bit is the sign indicator
             sign = -1;
         }
-        bin = bin.substr(1, 11);
+        bin = bin.substr(1, 11); // next 11 bits will be the numerical data itself
         int dec = stoi(bin, nullptr, 2);
-        cout << "\nBin: " << bin << endl;
-        cout << "Dec: " << dec << endl;
         return dec * sign;
-    } else {
+    } else { 
         int dec = stoi(bin, nullptr, 2); // dec = 13
         return dec;
     }
 }
 
-// string Conversion::decToBinary(int n) {
-//     string sign = "0";   // 0 if positive, 1 if negative
-//     string binary = "";
-//     if(n < 0) {
-//         sign = "1";
-//         binary = std::bitset<11>(abs(n)).to_string();
-//     } else {
-//         binary = std::bitset<11>(n).to_string();
-//     }
-//     return sign + binary;
-// }
 
-string Conversion::decToBinary(int n, bool isData) {
+string Conversion::decToBinary(int n, bool isData) { // returns binary equivalent of a decimal number
     string sign = "0";   // 0 if positive, 1 if negative
     string binary = "";
-    if(isData) {
+    if(isData) { 
         if(n < 0) {
             sign = "1";
             binary = std::bitset<11>(abs(n)).to_string();
@@ -116,19 +104,18 @@ string Conversion::decToBinary(int n, bool isData) {
 }
 
 
-string Conversion::negativeToHex(int n) {
-    /*
+string Conversion::negativeToHex(int n) { // return hexadecimal equivalent of a negative decimal number
+    /***********************************
     1 Absolute value
     2 Get binary equivalent (16-bits)
     3 Negate the value
     4 Convert to decimal
     5 Add 1 to decimal
     6 Convert to hex
-    */
+    ***********************************/
     int num = abs(n);
     string bin = decToBinary(num, false);
     
-    cout << bin << endl;
     for(int i = 0; i < bin.length(); i++) {
         bin[i] = (bin[i] == '0') ? '1' : '0';
     }
@@ -141,7 +128,7 @@ string Conversion::negativeToHex(int n) {
     
 }
 
-string Conversion::toHex(int n){
+string Conversion::toHex(int n){ // return hexadecimal equivalent of a decimal number
     // ans string to store hexadecimal number
     string ans = "";
     if(n == 0) {

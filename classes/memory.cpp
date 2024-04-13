@@ -7,10 +7,11 @@ using namespace std;
 
 
 
-Memory::Memory(int memoryNo) {
+Memory::Memory(int memoryNo) { // constructor
     this->memoryNo = memoryNo;
     this->memoryHex = f.toHex(memoryNo);
 }
+/*
 void Memory::displayMemory() {
     
     cout << "    " <<  " * * * * * * * * * *" << endl;
@@ -19,14 +20,15 @@ void Memory::displayMemory() {
     cout << "    " <<  " *                 *" << endl;
     cout << "    " <<  " * * * * * * * * * *" << endl;
 }
+*/
 
-void Memory::printMemory() {
+void Memory::printMemory() { // prints the contents of the memory
     cout << memoryHex << ": " << bitsInstruction << endl;
 }
 
-void Memory::setInstruction(string instruction, bool display) {
+void Memory::setInstruction(string instruction, bool display) { // sets the instruction in the memory
     this->instruction = instruction;
-    this->convertToBits();
+    this->convertToBits(); // converts the instruction to its bits equivalent
     if(display) this->displayContent();
 }
 
@@ -100,7 +102,7 @@ void Memory::convertToBits() {
     }
 }
 
-void Memory::displayContent() {
+void Memory::displayContent() { //displays content of memory for visual purposes
     cout << "\n\tInstruction: " << instruction << endl;
     cout << "\tOPCode: " << this->opCode << "(" << opCodeDecimal << ")" << endl;
     cout << "\tArguments: ";
@@ -119,15 +121,3 @@ string Memory::getBitsInstruction() {
 int Memory::getMemoryNo() {
     return this->memoryNo;
 }
-
-/********************************
-    0000 - INIT - 0
-    0001 - FILL - 1
-    0010 - MOVE - 2
-    0011 - ADDT - 3
-    0100 - ADDS - 4
-    0101 - SUBT - 5
-    0110 - SUBS - 6
-    0111 - POWT - 7
-    1000 - SQRT - 8
-********************************/

@@ -1,9 +1,9 @@
 #include <iostream>
 using namespace std;
-#include "classes/func.h"
-#include "classes/memory.h"
-#include "classes/actions.h"
-#include "classes/decoder.h"
+#include "classes/memory.h" // contains class Memory which imitates a memory
+#include "classes/actions.h" // contains methods used for actions involving registers and memory
+#include "classes/decoder.h" // contains methods used for the decoding process of the instruction
+#include "classes/func.h" // contains trivial subfunctions used in the program
 #include <iterator>
 #include <map>
 #include <cmath>
@@ -48,6 +48,7 @@ int main() {
     int counter = 0;
 
     vector<Memory> memoryCells;
+
     
     while(getline(fetch, instruction)) {
         f.clrScr();
