@@ -71,12 +71,10 @@ int main() {
     f.clrScr();
     act.printMemoryCells(memoryCells);
     
-
     // goes through every instruction in the memory
-    for(int i = 0; i < counter; i++) {
-        // set pct to the memory cell of the next instruction
-        registers[0] = i * byteSize;
-        
+    int i = 0;
+    while(i < counter) {
+
         f.clrScr();
         act.printMemoryCells(memoryCells);
         act.printAllRegisters(registers, instruction_register);
@@ -101,6 +99,10 @@ int main() {
 
         int opCode_Decimal = d.getOPCode_Dec();
         vector<int> arguments = d.getArguments_Dec();
+
+        // set pct to the memory cell of the next instruction
+        i++;
+        registers[0] = i * byteSize;
 
         // execute instruction
         int register_changed = executeInstruction(registers, opCode_Decimal, arguments);
